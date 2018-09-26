@@ -1,0 +1,29 @@
+{% extends 'kingadmin/index.html' %}
+{% load kingadmin_tags %}
+{% block right-content-container %}
+    <div style="display: inline;">
+        <form>
+            {% for filter_column in admin_class.list_filter %}
+                {% build_filter_ele filter_column admin_class %}
+            {% endfor %}
+            <input type="submit" value="过滤" class="btn btn-info">
+        </form>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    {% for column in admin_class.list_display %}
+                        <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in querysets %}
+                    <tr>{% build_table_row obj admin_class %}</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}
